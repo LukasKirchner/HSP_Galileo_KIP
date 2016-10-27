@@ -1,0 +1,8 @@
+Python GUI with Tkinter Tutorial
+https://thenewboston.com/videos.php?cat=99&video=20150
+
+Plotting data on a map
+http://matplotlib.org/basemap/users/examples.html
+
+Matplotlib Basemap Tutorial
+https://peak5390.wordpress.com/2012/12/08/matplotlib-basemap-tutorial-making-a-simple-map/
