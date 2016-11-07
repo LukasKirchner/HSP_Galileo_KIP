@@ -2,7 +2,7 @@ from Tkinter import *
 import tkFileDialog
 import csv
 
-master = Tk()
+# master = Tk()
 
 # opens a file dialog for csv files
 def openFileDialogCsv():
@@ -79,6 +79,7 @@ def getListFromCsvFile(fileNameCsv,columnHeaderNumberToShow,isHeaderInList):
                     columnCount += 1
     return lines
 
-print getListFromCsvFile(openFileDialogCsv(), "hallo", True)
 
-mainloop()
+# print getListFromCsvFile(openFileDialogCsv(), "hallo", True)
+
+# mainloop()
