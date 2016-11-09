@@ -2,7 +2,7 @@ import csv
 import CSVLoad
 
 # Open the earthquake data file.
-filename = 'datasets/earthquake_data.csv'
+filename = 'earthquake.csv'
 
 # Create empty lists for the data we are interested in.
 lats, lons = [], []
