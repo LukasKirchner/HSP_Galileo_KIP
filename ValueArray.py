@@ -42,7 +42,7 @@ class ValueArray:
 
 
 def load_from_csv(file):
-    # sample code for how to create a FeatureArray, likely doesn't work without adjustments
+    # UNTESTED sample code for how to create a FeatureArray, likely doesn't work without adjustments
     # currently tuned to the earthquake.csv file
     def string_to_datetime(str):
         # converts string to a datetime object
@@ -54,7 +54,7 @@ def load_from_csv(file):
         return datetime.datetime.strptime(str, "%Y-%m-%dT%H:%M:%S")
 
     l = []
-    for line in file:
+    for line in file[1:]:
         line.split(";")
         l.append(
             ValuePoint(
