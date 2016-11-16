@@ -1,0 +1,2 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type
+2015-04-25T14:25:06.520Z,40.6044998,-121.8546677,17.65,1.92,md,7,172,0.0806,0.02,nc,nc72435025,2015-04-25T14:31:51.640Z,"12km NNE of Shingletown, California",earthquake
