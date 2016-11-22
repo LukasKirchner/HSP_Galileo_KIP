@@ -56,7 +56,7 @@ class ValuePoint:
 
 
 class ValueGrid:
-    lons, lats = np.arange(-177, 183, 5), np.arange(-87, 93, 5)
+    lons, lats = np.arange(-180, 185, 5), np.arange(-90, 95, 5)
     lons, lats = np.meshgrid(lons, lats)
 
     def __init__(self, feature_points):
@@ -65,11 +65,20 @@ class ValueGrid:
 
         # grid[time][sat] => matrix[lat][lon] => ValuePoint
         # this assumes there's data for every satellite in every timestamp
-        self.grid = np.array([[[[point
+        self.grid = [[[[point
                       for point in lons]
                       for _, lons in groupby(sat, lambda p: p.lon)]
                       for _, sat in groupby(row, lambda p: p.sat)]
-                      for _, row in groupby(l, lambda p: p.t)])
+                      for _, row in groupby(l, lambda p: p.t)]
+
+        # extend each grid by 1 using the first element (loop around)
+        for c in self.grid:
+            for m in c:
+                for r in m:
+                    r.append(r[0])
+                m.append(m[0])
+
+        self.grid = np.array(self.grid)
 
         # sorted list of every timestamp
         self.times = [t[0, 0, 0].t for t in self.grid]
@@ -108,10 +117,11 @@ class ValueGrid:
         return "ValueGrid: "+str(self.times)+", "+str(self.sats)
 
 
-def load_from_csv(file):
+def load_from_csv(filename):
     # sample code for how to create a FeatureMatrix
     # currently tuned to the TestData.csv file, so it will need to be rewritten for actual data
 
     # converts every line into a list of floats and uses these as arguments for creating a new ValuePoint
-    l = [ValuePoint(*(float(v) for v in line.split(";"))) for line in file]
+    with open(filename) as file:
+        l = [ValuePoint(*(float(v) for v in line.split(";"))) for line in file]
     return ValueGrid(l)

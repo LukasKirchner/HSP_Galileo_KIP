@@ -1,5 +1,7 @@
 # generates a csv file filled with test data
-# ToDo: generate interesting data (currently fills with 0.5)
+# ToDo: generate reasonable data (currently fills with random values)
+
+import random
 
 fileName = "TestData.csv"
 satellites = [0, 1, 2]
@@ -12,7 +14,7 @@ def one_per_value():
         for t in times:
             for lon in range(-180, 180, 5):
                 for lat in range(-90, 90, 5):
-                    line = "%s;%.1f;%.1f;%.1f;%.1f\n" % (s, t, lon, lat, 0.5)
+                    line = "%s;%.1f;%.1f;%.1f;%.1f\n" % (s, t, lon, lat, random.random())
                     # print(line)
                     file.write(line)
 
