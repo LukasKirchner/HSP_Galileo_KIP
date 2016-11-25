@@ -1,10 +1,9 @@
-from mpl_toolkits.basemap import Basemap
-import numpy as np
-import matplotlib.pyplot as plt
-import csv
-import CSVLoad
-import matplotlib.cm as cmx
 import matplotlib.colors as colors
+import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.basemap import Basemap
+
+import CSVLoad
 import ValueGrid as VG
 
 # -----------------------------

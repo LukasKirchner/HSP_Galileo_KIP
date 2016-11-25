@@ -76,7 +76,7 @@ class ValueGrid:
             for m in c:
                 for r in m:
                     r.append(r[0])
-                m.append(m[0])
+                # m.append(m[0])
 
         self.grid = np.array(self.grid)
 
@@ -95,13 +95,16 @@ class ValueGrid:
         # returns the array index of sat
         return self.sats.index(sat)
 
-    # returns three matrices for easy plotting
-    def get_values(self, time, sat="all", val='val', comb='avg'):
+    # returns three matrices for easy plotting, as well as the maximum value for convenience
+    def get_values(self, time="0", sat="all", val='val', comb='avg'):
         # if sat = "all" , it returns a combination of all satellites, defined by comb
         # otherwise has to be a valid sat identifier
         # val defines which value to get (currently only supports "val")
 
-        tid = self.time_index(time)
+        if time == "0":
+            tid = 0
+        else:
+            tid = self.time_index(time)
         vf = val_func(val)
 
         if sat == "all":
@@ -111,7 +114,7 @@ class ValueGrid:
             sid = self.sat_index(sat)
             vals = np.array([[vf(x) for x in row] for row in self.grid[tid][sid]])
 
-        return ValueGrid.lons, ValueGrid.lats, vals
+        return ValueGrid.lons, ValueGrid.lats, vals, np.amax(vals)
 
     def __str__(self):
         return "ValueGrid: "+str(self.times)+", "+str(self.sats)
