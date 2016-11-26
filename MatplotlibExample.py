@@ -136,6 +136,10 @@ cbar = None
 
 build_map(9)
 
+#-------------------------------
+# save one plot to png
+plt.savefig('firstImage.png')
+
 # ------------------------------
 # button load file
 ax = plt.axes([0, 0.9, 0.1, 0.1])
