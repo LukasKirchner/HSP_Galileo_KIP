@@ -97,6 +97,13 @@ def button_on_clicked(event):
 
     plt.show()
 
+# ------------------------------
+# plot rectangle into origin map to show the zoom-area
+def plot_rec(bmap, lower_left, upper_left, lower_right, upper_right):
+    xs = [lower_left[0], upper_left[0], upper_right[0], lower_right[0], lower_left[0]]
+    ys = [lower_left[1], upper_left[1],  upper_right[1], lower_right[1], lower_left[1]]
+    bmap.plot(xs, ys, latlon = True, color='r', linewidth=1.5)
+
 
 def build_map(marker_size):
     global leftlon
@@ -122,6 +129,12 @@ def build_map(marker_size):
     mapOrigin.drawcoastlines()
     mapOrigin.drawparallels(np.arange(-90., 120., 5.))
     mapOrigin.drawmeridians(np.arange(0., 360., 5.))
+    lower_left = (leftlon, leftlat)
+    lower_right= (rightlon, leftlat)
+    upper_left = (leftlon, rightlat)
+    upper_right= (rightlon, rightlat)
+    plot_rec(mapOrigin, lower_left, upper_left, lower_right, upper_right)
+
 
     # ------------------------------
     # size/color marking points
