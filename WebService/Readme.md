@@ -7,3 +7,4 @@ Needed to get it run (server side):
 * Configuration file named C:/conf/conf.conf
 * CSV files in C:/csv/
 * images in C:/images/
+* the java files have to be stored in /WEB-INF/classes/main/
