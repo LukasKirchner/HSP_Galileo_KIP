@@ -1,4 +1,5 @@
 from mpl_toolkits.basemap import Basemap
+from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
@@ -206,7 +207,7 @@ build_map(9)
 #-------------------------------
 # save one plot to png
 plt.savefig('firstImage.png')
-
+plt.savefig('firstImage.pdf')
 
 # ------------------------------
 # button load file
