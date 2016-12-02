@@ -74,6 +74,9 @@
 		You can change the settings <a href="<%= webAddress.getPath() %>settings.jsp">here</a>.
 	</p>
 	<p>
+		You can upload new csv files <a href="<%= webAddress.getPath() %>upload.jsp">here</a>.
+	</p>
+	<p>
 		<input type="submit"></input>
 	</p>
 </form>
@@ -103,15 +106,14 @@
 	}
 %>
 
-<%= command %>
-
-<%	
-	for(File image : images){ 
-		%>
-		<p>
-			<img src="<%= webAddress.getPath() + "/" + imageFolder + "/" + image.getName() %> ">
-		</p>
-		<%
+<%	if(images != null){
+		for(File image : images){ 
+			%>
+			<p>
+				<img src="<%= webAddress.getPath() + "/" + imageFolder + "/" + image.getName() %> ">
+			</p>
+			<%
+		}
 	}
 %>
 
