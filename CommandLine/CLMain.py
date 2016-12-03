@@ -3,6 +3,7 @@ import ValueGrid
 from ConfigParser import RawConfigParser
 import CLBasemap as Map
 import GetAxis
+import os
 
 # check if called correctly
 if len(sys.argv) == 4:
@@ -12,12 +13,12 @@ if len(sys.argv) == 4:
 else:
     # print("got %i arguments" % len(sys.argv))
     # print(sys.argv)
-    # sys.stderr.write("CLMain.py <configfile> <csvfile> <outputfile>\n")
+    # sys.stderr.write("CLMain.py <configfile> <csvfile> <outputpath>\n")
     # sys.exit(2)
 
     conf = "default.cfg"
     csv = "TestData.csv"
-    out = "test.out"
+    out = "Image"
 
 
 __defaults = {
@@ -34,17 +35,35 @@ __defaults = {
     "transparency": ".2",
 }
 
+# clear output folder
+for file in os.listdir(out):
+    filepath = os.path.join(out, file)
+    os.unlink(filepath)
+
 config = RawConfigParser(__defaults)
 config.read(conf)
 
 grid = ValueGrid.load_from_csv(csv)
 
-# TEMP
 ax = GetAxis.get_axis()
 
-m, contour = Map.draw_basemap(dict(config.items("DEFAULT")), grid, ax)
+# closure to automatically name each file
+def __draw():
+    class c:
+        i = 0
 
-# TEMP
-GetAxis.draw()
+    def draw():
+        GetAxis.draw("%s/_%i.png" % (out, c.i))
+        c.i += 1
+    return draw
+
+# Map.draw_one(dict(config.items("DEFAULT")), grid, ax, __draw())
+count = Map.draw_all(dict(config.items("DEFAULT")), grid, ax, __draw())
+
+# return the number of created images
+# alternative: jsp:redirect stdout, write count to stdout
+sys.exit(count)
+
+
 
 

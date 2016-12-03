@@ -7,5 +7,6 @@ def get_axis():
     return ax
 
 
-def draw():
-    plt.show()
+def draw(filename):
+    # plt.show()
+    plt.savefig(filename)
