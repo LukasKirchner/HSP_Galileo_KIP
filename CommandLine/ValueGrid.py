@@ -30,16 +30,16 @@ def comb_func(comb):
     elif comb == "sum":
         return sum
     else:
-        # default: identity
-        return lambda i: i
+        # default: first element
+        return lambda l: l[0]
 
 
 def val_func(val):
     if val == "val":
         return lambda v: v.val
     else:
-        # default: identity
-        return lambda i: i
+        # default: 0
+        return lambda v: 0
 
 
 class ValuePoint:
@@ -96,20 +96,21 @@ class ValueGrid:
         return self.sats.index(sat)
 
     # returns three matrices for easy plotting, as well as the maximum value for convenience
-    def get_values(self, time="0", sat="all", val='val', comb='avg'):
-        # if sat = "all" , it returns a combination of all satellites, defined by comb
-        # otherwise has to be a valid sat identifier
+    def get_values(self, time="0", sat="avg", val='val'):
+        # if sat is not a valid sat identifier, it returns a combination of all satellites,
+        #   taking sat as the combination method
         # val defines which value to get (currently only supports "val")
 
-        if time == "0":
+        if time not in self.times:
+            print("time is not a valid timestamp")
             tid = 0
         else:
             tid = self.time_index(time)
         vf = val_func(val)
 
-        if sat == "all":
+        if sat not in self.sats:
             a_vals = np.array([[[vf(x) for x in row] for row in grid] for grid in self.grid[tid]])
-            vals = np.array(_fold_cube(a_vals, comb_func(comb)))
+            vals = np.array(_fold_cube(a_vals, comb_func(sat)))
         else:
             sid = self.sat_index(sat)
             vals = np.array([[vf(x) for x in row] for row in self.grid[tid][sid]])
@@ -123,8 +124,12 @@ class ValueGrid:
 def load_from_csv(filename):
     # sample code for how to create a FeatureMatrix
     # currently tuned to the TestData.csv file, so it will need to be rewritten for actual data
+    def str2point(line):
+        v = line.split(";")
+        # sat, time, lon, lat, v
+        return ValuePoint(v[0], float(v[1]), float(v[2]), float(v[3]), float(v[4]))
 
     # converts every line into a list of floats and uses these as arguments for creating a new ValuePoint
     with open(filename) as file:
-        l = [ValuePoint(*(float(v) for v in line.split(";"))) for line in file]
+        l = [str2point(line) for line in file]
     return ValueGrid(l)

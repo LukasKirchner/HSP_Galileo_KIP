@@ -16,20 +16,22 @@ else:
     # sys.stderr.write("CLMain.py <configfile> <csvfile> <outputpath>\n")
     # sys.exit(2)
 
-    conf = "default.cfg"
+    conf = "new.cfg"
     csv = "TestData.csv"
     out = "Image"
 
 
 __defaults = {
-    "projection": "ortho",
+    # "projection": "ortho",
+    "cylindrical": "true",
     "lon": "0",
     "lat": "0",
-    "width": "15000000",
-    "height": "15000000",
-    "resolution": "c",
+    "zoom": "0",
+    # "width": "15000000",
+    # "height": "15000000",
+    # "resolution": "c",
 
-    "time": "0",
+    "time": "all",
     "sat": "all",
 
     "transparency": ".2",
@@ -43,6 +45,8 @@ for file in os.listdir(out):
 config = RawConfigParser(__defaults)
 config.read(conf)
 
+time = config.get("DEFAULT", "time")
+sat = config.get("DEFAULT", "sat")
 grid = ValueGrid.load_from_csv(csv)
 
 ax = GetAxis.get_axis()
@@ -62,7 +66,7 @@ count = Map.draw_all(dict(config.items("DEFAULT")), grid, ax, __draw())
 
 # return the number of created images
 # alternative: jsp:redirect stdout, write count to stdout
-sys.exit(count)
+# sys.exit(count)
 
 
 
