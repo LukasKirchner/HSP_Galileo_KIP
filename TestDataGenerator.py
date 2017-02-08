@@ -13,7 +13,7 @@ def one_per_value():
     for s in satellites:
         for t in times:
             for lon in range(-180, 180, 5):
-                for lat in range(-90, 90, 5):
+                for lat in range(-90, 91, 5):
                     line = "%s;%.1f;%.1f;%.1f;%.1f\n" % (s, t, lon, lat, random.random())
                     # print(line)
                     file.write(line)
@@ -24,7 +24,7 @@ def one_per_satellite_and_time():
         for t in times:
             file.write("%s;%.1f;" % (s, t))
             for lon in range(-180, 180, 5):
-                for lat in range(-90, 90, 5):
+                for lat in range(-90, 91, 5):
                     file.write("%f;" % 0.5)
             file.write("\n")
 
