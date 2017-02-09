@@ -118,7 +118,7 @@ def draw_all(config, grid, ax, draw_func):
         sats = grid.sats
 
     times = config["time"]
-    if times[0] == "all":
+    if times == "all":
         times = grid.times
     else:
         times = [float(times)]
